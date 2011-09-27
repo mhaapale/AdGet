@@ -1,0 +1,27 @@
+Use of Service API
+----------------------
+ Service:
+  - Does not interact with user and operates on background
+  - Runs context of main thread(UI thread)
+  - User of service needs to create worker thread.
+  - Can be impelented by intent-api or binder-interface, we use intent-api
+  - stateless
+  - after completed operation, shutdown the service
+
+
+ Service Helper
+ - Thin layer to preparing intents and handle binder callbacks on return path
+ - Singleton to expose Async API to UI
+ - Check if method already pending
+     o implement map  (request id, intent)
+ - Create the request intent
+ - add operation tpye and unique request id
+ - add method specific parameters
+ - add the binder callback
+ - call startService(intent)
+ - return the request id, this can be later on to be used to see if request is still pending
+ - dispatch callback to any listener, who likes to know result of this method
+ - As little data as possible in callback
+
+ Notes:
+ - Never runs database operation on context of main thread. Soon you will run application not responding errors
