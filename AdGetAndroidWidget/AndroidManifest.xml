@@ -6,13 +6,17 @@
     <uses-sdk android:minSdkVersion="10" />
 
     <application android:icon="@drawable/icon" android:label="@string/app_name">
-	<!-- Broadcast Receiver that will process AppWidget updates -->
-	<receiver android:name=".ui.widget.AdGetWidget" android:label="@string/app_name">
-		<intent-filter>
-			<action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
-		</intent-filter>
-		<meta-data android:name="android.appwidget.provider" android:resource="@xml/hello_widget_provider" />
-	</receiver>
+		<!-- Broadcast Receiver that will process AppWidget updates -->
+		<receiver android:name=".ui.widget.AdGetWidget" android:label="@string/app_name">
+			<intent-filter>
+				<action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+			</intent-filter>
+			<meta-data android:name="android.appwidget.provider" android:resource="@xml/hello_widget_provider" />
+		</receiver>
+		<service android:exported="false" android:name=".service.PicasaDroidService">
+        </service>
+        <provider android:name=".content.PicasaDroidContentProvider"  android:authorities="app.droid.photod.content.picasadroidcontentprovider">        
+        </provider>
     </application>
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"></uses-permission> 
 </manifest>
