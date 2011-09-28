@@ -32,7 +32,7 @@ public class AdvertisementServiceHelper {
 //	public List<Advertisement> getSurroundingAdvertisements(Location location);
 
 	public void getSurroundingAdvertisements(final ActivityCallBack< List<Advertisement> > callback) {
-		final Intent authenticateUserIntent = new Intent(context, AdvertisementService.class);
+		final Intent adIntent = new Intent(context, AdvertisementService.class);
 /*		authenticateUserIntent.putExtra("authToken",authToken);
 		authenticateUserIntent.putExtra("opCode",PicasaDroidService.DELETE_ALBUM);
 		authenticateUserIntent.putExtra("etag",etag);
@@ -41,7 +41,7 @@ public class AdvertisementServiceHelper {
 		final StringBuffer resourceBfr = new StringBuffer();
 //		resourceBfr.append(authToken).append(";").append(albumId).append(";").append(etag).append(";").append(PicasaDroid.RestTransactionResult.RESOURCE_TYPE_ALBUM).append(";").append(PicasaDroidService.DELETE_ALBUM);
 		
-		bindToService(resourceBfr.toString(),authenticateUserIntent,new  ServiceCallBack< List<Advertisement> >() {
+		bindToService(resourceBfr.toString(), adIntent,new  ServiceCallBack< List<Advertisement> >() {
 			@Override
 			public void onServiceComplete(List<Advertisement> result) {
 				// TODO Auto-generated method stub

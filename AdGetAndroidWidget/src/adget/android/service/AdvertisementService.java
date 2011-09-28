@@ -32,15 +32,30 @@ public class AdvertisementService extends IntentService {
 
 
 	@Override
-	protected void onHandleIntent(final Intent intent) {
+	protected void onHandleIntent(Intent intent) {
 		// TODO Auto-generated method stub
 		System.out.println("Service Invoked");
 		AdGetProcessor processor = new AdGetProcessor();
 		int opCode = intent.getExtras().getInt("opCode");
+
 		processor.executeRestMethod(opCode,  new ProcessorCallBack<ResponseEvent>() {
+			@Override
+			public void onSuccess(ResponseEvent event) {
+				ServiceCallBack callback = advertisementServiceCallbackMap.get(event.getEventSource());
+				callback.onServiceComplete(event.getResult());
+				
+			}
 
 			@Override
-			public void onFailure(ResponseEvent< List<Advertisement> >event) {
+			public void onFailure(ResponseEvent event) {
+				// TODO Auto-generated method stub
+				
+			}
+
+
+/*
+			@Override
+			public void onFailure(ResponseEvent< >event) {
 				// TODO Auto-generated method stub
 				if(advertisementServiceCallbackMap.containsKey(event.getEventSource())){
 					advertisementServiceCallbackMap.get(event.getEventSource()).onFailure(event.getErrorMsg());
@@ -63,7 +78,7 @@ public class AdvertisementService extends IntentService {
 					}	
 				}				
 			}
-			
+	*/		
 		});
 		
 	
